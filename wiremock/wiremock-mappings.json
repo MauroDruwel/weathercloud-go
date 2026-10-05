@@ -1,0 +1,596 @@
+{
+  "mappings": [
+    {
+      "id": "e3703637-71a4-44d5-9fdf-8de79ca26d5a",
+      "name": "User login / authentication - default",
+      "request": {
+        "urlPathTemplate": "/signin",
+        "method": "POST"
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e3703637-71a4-44d5-9fdf-8de79ca26d5a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "8bec7993-0fce-4412-8db3-1316705bedc7",
+      "name": "Current sensor readings ⭐ - default",
+      "request": {
+        "urlPathTemplate": "/device/values/{deviceId}",
+        "method": "GET",
+        "pathParameters": {
+          "deviceId": {
+            "equalTo": "5726468552"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"epoch\": 1779825116,\n  \"temp\": 24.8,\n  \"dew\": 15.2,\n  \"chill\": 24.8,\n  \"heat\": 24.8,\n  \"hum\": 55,\n  \"bar\": 1024.9,\n  \"wdir\": 344,\n  \"wdiravg\": 344,\n  \"wspd\": 0.6,\n  \"wspdavg\": 0.6,\n  \"wspdhi\": 1,\n  \"rainrate\": 0,\n  \"rain\": 0,\n  \"solarrad\": 0,\n  \"uvi\": 0,\n  \"tempin\": 1.1,\n  \"humin\": 1,\n  \"heatin\": 1.1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8bec7993-0fce-4412-8db3-1316705bedc7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "4e762805-2ac8-4cc2-8534-93a7d439291b",
+      "name": "Current + min/max statistics ⭐ - default",
+      "request": {
+        "urlPathTemplate": "/device/stats",
+        "method": "GET",
+        "queryParameters": {
+          "code": {
+            "equalTo": "5726468552"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"last_update\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "4e762805-2ac8-4cc2-8534-93a7d439291b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "2593e575-88ff-4cb5-bad3-7b1979108907",
+      "name": "Station metadata ⭐ - default",
+      "request": {
+        "urlPathTemplate": "/device/info/{deviceId}",
+        "method": "GET",
+        "pathParameters": {
+          "deviceId": {
+            "equalTo": "5726468552"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"device\": {\n    \"account\": 1,\n    \"status\": \"status\",\n    \"city\": \"city\",\n    \"altitude\": \"altitude\",\n    \"image\": \"image\",\n    \"isWebcam\": true,\n    \"favorite\": true,\n    \"social\": true,\n    \"update\": 1\n  },\n  \"values\": {\n    \"temp\": \"temp\",\n    \"hum\": \"hum\",\n    \"dew\": \"dew\",\n    \"wspdavg\": \"wspdavg\",\n    \"wdiravg\": \"wdiravg\",\n    \"bar\": \"bar\",\n    \"rain\": \"rain\",\n    \"rainrate\": \"rainrate\",\n    \"solarrad\": \"solarrad\",\n    \"uvi\": \"uvi\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2593e575-88ff-4cb5-bad3-7b1979108907",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d3f3534f-abc8-4a85-9307-3b16732e044f",
+      "name": "Wind rose data - default",
+      "request": {
+        "urlPathTemplate": "/device/wind",
+        "method": "GET",
+        "queryParameters": {
+          "code": {
+            "equalTo": "5726468552"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"date\": 1,\n  \"values\": [\n    {\n      \"sum\": 1.1,\n      \"scale\": [\n        1\n      ]\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d3f3534f-abc8-4a85-9307-3b16732e044f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "2dbe2b15-e789-47c0-9987-f9f65d4a8dd0",
+      "name": "Last update time + status - default",
+      "request": {
+        "urlPathTemplate": "/device/ajaxupdatedate",
+        "method": "POST"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"update\": 71,\n  \"status\": \"2\",\n  \"server_time\": 1779825187\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2dbe2b15-e789-47c0-9987-f9f65d4a8dd0",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c60bb1b8-9535-4c16-84bc-14f3df6c9df6",
+      "name": "Station owner profile - default",
+      "request": {
+        "urlPathTemplate": "/device/ajaxprofile",
+        "method": "POST"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"observer\": {\n    \"name\": \"Gino Wallaert\",\n    \"nickname\": \"Ginometeo\",\n    \"company\": \"\"\n  },\n  \"followers\": {\n    \"number\": \"1\"\n  },\n  \"device\": {\n    \"brand\": \"Other\",\n    \"model\": \"Other\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c60bb1b8-9535-4c16-84bc-14f3df6c9df6",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "cb2c6eb5-8243-41bf-a393-35425f728e8e",
+      "name": "Time-series history for a variable - default",
+      "request": {
+        "urlPathTemplate": "/device/evolution",
+        "method": "POST"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"timezone\": \"Europe/Brussels\",\n    \"summary\": {\n      \"key\": {}\n    },\n    \"values\": {\n      \"key\": {\n        \"key\": {}\n      }\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "cb2c6eb5-8243-41bf-a393-35425f728e8e",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d6c792de-82c9-4f3e-b772-e0324afff134",
+      "name": "Daily weather forecast - default",
+      "request": {
+        "urlPathTemplate": "/forecast/daily",
+        "method": "GET",
+        "queryParameters": {
+          "id": {
+            "equalTo": "5726468552"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"info\": {\n    \"source\": \"WMO\",\n    \"web\": \"https://worldweather.wmo.int\",\n    \"days\": 6\n  },\n  \"location\": {\n    \"name\": \"Ingelmunster\"\n  },\n  \"forecast\": {\n    \"2026-05-28\": {\n      \"weather\": {\n        \"code\": 12\n      },\n      \"temperature\": {\n        \"max\": 29,\n        \"min\": 16\n      }\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d6c792de-82c9-4f3e-b772-e0324afff134",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "cb42e29b-9335-42f5-9b19-609a3f38c6a5",
+      "name": "Stations on map within area - default",
+      "request": {
+        "urlPathTemplate": "/map/devices",
+        "method": "POST"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"devices\": [\n    [\n      \"RWACTX\",\n      \"Wilsele-Herent\",\n      50.904295,\n      4.69565,\n      2,\n      0,\n      277,\n      54,\n      10270,\n      19,\n      336,\n      0,\n      0,\n      8050,\n      47\n    ]\n  ],\n  \"owner\": [\n    [\n      {\n        \"key\": \"value\"\n      }\n    ]\n  ],\n  \"favorites\": [\n    [\n      {\n        \"key\": \"value\"\n      }\n    ]\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "cb42e29b-9335-42f5-9b19-609a3f38c6a5",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d4b2fb6e-a51b-4ae4-9cd2-8267f8fd51c3",
+      "name": "Background/inactive stations on map - default",
+      "request": {
+        "urlPathTemplate": "/map/bgdevices",
+        "method": "POST"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"devices\": [\n    [\n      \"RWACTX\",\n      \"Wilsele-Herent\",\n      50.904295,\n      4.69565,\n      2,\n      0,\n      277,\n      54,\n      10270,\n      19,\n      336,\n      0,\n      0,\n      8050,\n      47\n    ]\n  ],\n  \"owner\": [\n    [\n      {\n        \"key\": \"value\"\n      }\n    ]\n  ],\n  \"favorites\": [\n    [\n      {\n        \"key\": \"value\"\n      }\n    ]\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d4b2fb6e-a51b-4ae4-9cd2-8267f8fd51c3",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "70056024-7ecd-4ab8-b1ad-7752417ec91f",
+      "name": "METAR airport observations on map - default",
+      "request": {
+        "urlPathTemplate": "/map/metars",
+        "method": "POST"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"metars\": [\n    [\n      \"EBBR\",\n      \"Brussels\",\n      50.9014,\n      4.4844,\n      2,\n      0,\n      260,\n      58,\n      10220,\n      80,\n      260,\n      0,\n      \"\",\n      \"\",\n      \"\"\n    ]\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "70056024-7ecd-4ab8-b1ad-7752417ec91f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "798ae646-8d83-4824-8249-18629dd3899f",
+      "name": "Stations near coordinates ⭐ - default",
+      "request": {
+        "urlPathTemplate": "/page/coordinates/latitude/{lat}/longitude/{lon}/distance/{km}",
+        "method": "GET",
+        "pathParameters": {
+          "lat": {
+            "equalTo": "1.1"
+          },
+          "lon": {
+            "equalTo": "1.1"
+          },
+          "km": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"devices\": [\n    {\n      \"type\": \"device\",\n      \"code\": \"2034767194\",\n      \"name\": \"WeatherStation Skyline\",\n      \"city\": \"city\",\n      \"latitude\": \"latitude\",\n      \"longitude\": \"longitude\",\n      \"elevation\": \"elevation\",\n      \"image\": \"image\",\n      \"isWebcam\": true,\n      \"account\": 1,\n      \"isFavorite\": true,\n      \"update\": 1,\n      \"data\": \"data\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "798ae646-8d83-4824-8249-18629dd3899f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "0f952761-ac2f-4e58-b0ac-5290bbb0135f",
+      "name": "Popular stations by country - default",
+      "request": {
+        "urlPathTemplate": "/page/popular/country/{country}/period/{period}",
+        "method": "GET",
+        "pathParameters": {
+          "country": {
+            "equalTo": "BE"
+          },
+          "period": {
+            "equalTo": "day"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"devices\": [\n    {\n      \"type\": \"device\",\n      \"code\": \"2034767194\",\n      \"name\": \"WeatherStation Skyline\",\n      \"city\": \"city\",\n      \"latitude\": \"latitude\",\n      \"longitude\": \"longitude\",\n      \"elevation\": \"elevation\",\n      \"image\": \"image\",\n      \"isWebcam\": true,\n      \"account\": 1,\n      \"isFavorite\": true,\n      \"update\": 1,\n      \"data\": \"data\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "0f952761-ac2f-4e58-b0ac-5290bbb0135f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "ed6eea65-420e-4d5f-a844-c68e1b033549",
+      "name": "Newest stations by country - default",
+      "request": {
+        "urlPathTemplate": "/page/newest/country/{country}",
+        "method": "GET",
+        "pathParameters": {
+          "country": {
+            "equalTo": "BE"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"devices\": [\n    {\n      \"type\": \"device\",\n      \"code\": \"2034767194\",\n      \"name\": \"WeatherStation Skyline\",\n      \"city\": \"city\",\n      \"latitude\": \"latitude\",\n      \"longitude\": \"longitude\",\n      \"elevation\": \"elevation\",\n      \"image\": \"image\",\n      \"isWebcam\": true,\n      \"account\": 1,\n      \"isFavorite\": true,\n      \"update\": 1,\n      \"data\": \"data\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "ed6eea65-420e-4d5f-a844-c68e1b033549",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c9bf9bdd-734c-4e22-bf39-cc9a3184f3a6",
+      "name": "Most followed stations by country - default",
+      "request": {
+        "urlPathTemplate": "/page/followers/country/{country}",
+        "method": "GET",
+        "pathParameters": {
+          "country": {
+            "equalTo": "BE"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"devices\": [\n    {\n      \"type\": \"device\",\n      \"code\": \"2034767194\",\n      \"name\": \"WeatherStation Skyline\",\n      \"city\": \"city\",\n      \"latitude\": \"latitude\",\n      \"longitude\": \"longitude\",\n      \"elevation\": \"elevation\",\n      \"image\": \"image\",\n      \"isWebcam\": true,\n      \"account\": 1,\n      \"isFavorite\": true,\n      \"update\": 1,\n      \"data\": \"data\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c9bf9bdd-734c-4e22-bf39-cc9a3184f3a6",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "a4014ff2-9544-4fc5-bc7f-5e633a55983a",
+      "name": "Recently viewed stations - default",
+      "request": {
+        "urlPathTemplate": "/page/lastviews",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"devices\": [\n    {\n      \"type\": \"device\",\n      \"code\": \"2034767194\",\n      \"name\": \"WeatherStation Skyline\",\n      \"city\": \"city\",\n      \"latitude\": \"latitude\",\n      \"longitude\": \"longitude\",\n      \"elevation\": \"elevation\",\n      \"image\": \"image\",\n      \"isWebcam\": true,\n      \"account\": 1,\n      \"isFavorite\": true,\n      \"update\": 1,\n      \"data\": \"data\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a4014ff2-9544-4fc5-bc7f-5e633a55983a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "f3815edf-9c31-466d-bb51-08ee776679e4",
+      "name": "Own stations (requires login) - default",
+      "request": {
+        "urlPathTemplate": "/page/own",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"devices\": [\n    {\n      \"type\": \"device\",\n      \"code\": \"2034767194\",\n      \"name\": \"WeatherStation Skyline\",\n      \"city\": \"city\",\n      \"latitude\": \"latitude\",\n      \"longitude\": \"longitude\",\n      \"elevation\": \"elevation\",\n      \"image\": \"image\",\n      \"isWebcam\": true,\n      \"account\": 1,\n      \"isFavorite\": true,\n      \"update\": 1,\n      \"data\": \"data\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f3815edf-9c31-466d-bb51-08ee776679e4",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "8dcaa6de-766f-4e8e-ba92-7e15f3219a17",
+      "name": "Station HTML page (scrape station name) - default",
+      "request": {
+        "urlPathTemplate": "/d{deviceId}",
+        "method": "GET",
+        "pathParameters": {
+          "deviceId": {
+            "equalTo": "deviceId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8dcaa6de-766f-4e8e-ba92-7e15f3219a17",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "4706067c-7232-45ad-8805-3b6278afc4f8",
+      "name": "METAR station — current readings - default",
+      "request": {
+        "urlPathTemplate": "/metar/values/{deviceId}",
+        "method": "GET",
+        "pathParameters": {
+          "deviceId": {
+            "equalTo": "EBBR"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"epoch\": 1,\n  \"temp\": 1.1,\n  \"dew\": 1.1,\n  \"chill\": 1.1,\n  \"heat\": 1.1,\n  \"hum\": 1,\n  \"bar\": 1.1,\n  \"wdir\": 1,\n  \"wdiravg\": 1,\n  \"wspd\": 1.1,\n  \"wspdavg\": 1.1,\n  \"wspdhi\": 1.1,\n  \"rainrate\": 1.1,\n  \"rain\": 1.1,\n  \"solarrad\": 1.1,\n  \"uvi\": 1.1,\n  \"tempin\": 1.1,\n  \"humin\": 1,\n  \"heatin\": 1.1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "4706067c-7232-45ad-8805-3b6278afc4f8",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    }
+  ],
+  "meta": {
+    "total": 20
+  }
+}

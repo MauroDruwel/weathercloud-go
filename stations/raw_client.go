@@ -6,10 +6,11 @@ import (
 	bytes "bytes"
 	context "context"
 	http "net/http"
-	sdk "sdk"
-	core "sdk/core"
-	internal "sdk/internal"
-	option "sdk/option"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 )
 
 type RawClient struct {
@@ -34,9 +35,9 @@ func NewRawClient(options *core.RequestOptions) *RawClient {
 
 func (r *RawClient) GetNearby(
 	ctx context.Context,
-	request *sdk.GetNearbyStationsRequest,
+	request *weathercloud.GetNearbyStationsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PageDevicesResponse], error) {
+) (*core.Response[*weathercloud.PageDevicesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -53,7 +54,7 @@ func (r *RawClient) GetNearby(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.PageDevicesResponse
+	var response *weathercloud.PageDevicesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -71,7 +72,7 @@ func (r *RawClient) GetNearby(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PageDevicesResponse]{
+	return &core.Response[*weathercloud.PageDevicesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -80,9 +81,9 @@ func (r *RawClient) GetNearby(
 
 func (r *RawClient) GetPopular(
 	ctx context.Context,
-	request *sdk.GetPopularStationsRequest,
+	request *weathercloud.GetPopularStationsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PageDevicesResponse], error) {
+) (*core.Response[*weathercloud.PageDevicesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -98,7 +99,7 @@ func (r *RawClient) GetPopular(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.PageDevicesResponse
+	var response *weathercloud.PageDevicesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -116,7 +117,7 @@ func (r *RawClient) GetPopular(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PageDevicesResponse]{
+	return &core.Response[*weathercloud.PageDevicesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -125,9 +126,9 @@ func (r *RawClient) GetPopular(
 
 func (r *RawClient) GetNewest(
 	ctx context.Context,
-	request *sdk.GetNewestStationsRequest,
+	request *weathercloud.GetNewestStationsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PageDevicesResponse], error) {
+) (*core.Response[*weathercloud.PageDevicesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -142,7 +143,7 @@ func (r *RawClient) GetNewest(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.PageDevicesResponse
+	var response *weathercloud.PageDevicesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -160,7 +161,7 @@ func (r *RawClient) GetNewest(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PageDevicesResponse]{
+	return &core.Response[*weathercloud.PageDevicesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -169,9 +170,9 @@ func (r *RawClient) GetNewest(
 
 func (r *RawClient) GetMostFollowed(
 	ctx context.Context,
-	request *sdk.GetMostFollowedStationsRequest,
+	request *weathercloud.GetMostFollowedStationsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PageDevicesResponse], error) {
+) (*core.Response[*weathercloud.PageDevicesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -186,7 +187,7 @@ func (r *RawClient) GetMostFollowed(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.PageDevicesResponse
+	var response *weathercloud.PageDevicesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -204,7 +205,7 @@ func (r *RawClient) GetMostFollowed(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PageDevicesResponse]{
+	return &core.Response[*weathercloud.PageDevicesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -214,7 +215,7 @@ func (r *RawClient) GetMostFollowed(
 func (r *RawClient) GetLastViews(
 	ctx context.Context,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PageDevicesResponse], error) {
+) (*core.Response[*weathercloud.PageDevicesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -226,7 +227,7 @@ func (r *RawClient) GetLastViews(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.PageDevicesResponse
+	var response *weathercloud.PageDevicesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -244,7 +245,7 @@ func (r *RawClient) GetLastViews(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PageDevicesResponse]{
+	return &core.Response[*weathercloud.PageDevicesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -254,7 +255,7 @@ func (r *RawClient) GetLastViews(
 func (r *RawClient) GetOwn(
 	ctx context.Context,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PageDevicesResponse], error) {
+) (*core.Response[*weathercloud.PageDevicesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -266,7 +267,7 @@ func (r *RawClient) GetOwn(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.PageDevicesResponse
+	var response *weathercloud.PageDevicesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -284,7 +285,7 @@ func (r *RawClient) GetOwn(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PageDevicesResponse]{
+	return &core.Response[*weathercloud.PageDevicesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -293,7 +294,7 @@ func (r *RawClient) GetOwn(
 
 func (r *RawClient) GetStationPage(
 	ctx context.Context,
-	request *sdk.GetStationPageStationsRequest,
+	request *weathercloud.GetStationPageStationsRequest,
 	opts ...option.RequestOption,
 ) (*core.Response[string], error) {
 	options := core.NewRequestOptions(opts...)

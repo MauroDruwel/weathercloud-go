@@ -1,4 +1,4 @@
-module sdk
+module github.com/MauroDruwel/weathercloud-go
 
 go 1.21
 

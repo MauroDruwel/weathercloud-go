@@ -5,10 +5,11 @@ package forecast
 import (
 	context "context"
 	http "net/http"
-	sdk "sdk"
-	core "sdk/core"
-	internal "sdk/internal"
-	option "sdk/option"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 )
 
 type RawClient struct {
@@ -33,9 +34,9 @@ func NewRawClient(options *core.RequestOptions) *RawClient {
 
 func (r *RawClient) GetDaily(
 	ctx context.Context,
-	request *sdk.GetDailyForecastRequest,
+	request *weathercloud.GetDailyForecastRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.ForecastResponse], error) {
+) (*core.Response[*weathercloud.ForecastResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -54,7 +55,7 @@ func (r *RawClient) GetDaily(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.ForecastResponse
+	var response *weathercloud.ForecastResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -72,7 +73,7 @@ func (r *RawClient) GetDaily(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.ForecastResponse]{
+	return &core.Response[*weathercloud.ForecastResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

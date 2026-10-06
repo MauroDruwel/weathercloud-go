@@ -28,7 +28,7 @@ This endpoint expects form urlencoded data and returns a `302 Found` redirect on
 <dd>
 
 ```go
-request := &sdk.LoginAuthRequest{
+request := &weathercloud.LoginAuthRequest{
         LoginFormEntity: "LoginForm[entity]",
         LoginFormPassword: "LoginForm[password]",
     }
@@ -67,7 +67,7 @@ client.Auth.Login(
 <dl>
 <dd>
 
-**loginFormRememberMe:** `*sdk.LoginAuthRequestLoginFormRememberMe` — Keep the user logged in
+**loginFormRememberMe:** `*weathercloud.LoginAuthRequestLoginFormRememberMe` — Keep the user logged in
     
 </dd>
 </dl>
@@ -80,7 +80,7 @@ client.Auth.Login(
 </details>
 
 ## DeviceLive
-<details><summary><code>client.DeviceLive.GetValues(DeviceID) -> *sdk.DeviceValues</code></summary>
+<details><summary><code>client.DeviceLive.GetValues(DeviceID) -> *weathercloud.DeviceValues</code></summary>
 <dl>
 <dd>
 
@@ -108,7 +108,7 @@ This is the primary endpoint for a Home Assistant sensor integration.
 <dd>
 
 ```go
-request := &sdk.GetValuesDeviceLiveRequest{
+request := &weathercloud.GetValuesDeviceLiveRequest{
         DeviceID: "5726468552",
     }
 client.DeviceLive.GetValues(
@@ -142,7 +142,7 @@ client.DeviceLive.GetValues(
 </dl>
 </details>
 
-<details><summary><code>client.DeviceLive.GetStats() -> *sdk.DeviceStats</code></summary>
+<details><summary><code>client.DeviceLive.GetStats() -> *weathercloud.DeviceStats</code></summary>
 <dl>
 <dd>
 
@@ -170,7 +170,7 @@ Each value is a `[unix_timestamp, value]` tuple.
 <dd>
 
 ```go
-request := &sdk.GetStatsDeviceLiveRequest{
+request := &weathercloud.GetStatsDeviceLiveRequest{
         Code: "5726468552",
     }
 client.DeviceLive.GetStats(
@@ -204,7 +204,7 @@ client.DeviceLive.GetStats(
 </dl>
 </details>
 
-<details><summary><code>client.DeviceLive.GetInfo(DeviceID) -> *sdk.DeviceInfo</code></summary>
+<details><summary><code>client.DeviceLive.GetInfo(DeviceID) -> *weathercloud.DeviceInfo</code></summary>
 <dl>
 <dd>
 
@@ -231,7 +231,7 @@ Station name, location, elevation, equipment info.
 <dd>
 
 ```go
-request := &sdk.GetInfoDeviceLiveRequest{
+request := &weathercloud.GetInfoDeviceLiveRequest{
         DeviceID: "5726468552",
     }
 client.DeviceLive.GetInfo(
@@ -265,7 +265,7 @@ client.DeviceLive.GetInfo(
 </dl>
 </details>
 
-<details><summary><code>client.DeviceLive.GetWindRose() -> *sdk.WindData</code></summary>
+<details><summary><code>client.DeviceLive.GetWindRose() -> *weathercloud.WindData</code></summary>
 <dl>
 <dd>
 
@@ -292,7 +292,7 @@ Wind direction distribution data for the wind rose chart.
 <dd>
 
 ```go
-request := &sdk.GetWindRoseDeviceLiveRequest{
+request := &weathercloud.GetWindRoseDeviceLiveRequest{
         Code: "5726468552",
     }
 client.DeviceLive.GetWindRose(
@@ -326,7 +326,7 @@ client.DeviceLive.GetWindRose(
 </dl>
 </details>
 
-<details><summary><code>client.DeviceLive.GetUpdateStatus(request) -> *sdk.GetUpdateStatusDeviceLiveResponse</code></summary>
+<details><summary><code>client.DeviceLive.GetUpdateStatus(request) -> *weathercloud.GetUpdateStatusDeviceLiveResponse</code></summary>
 <dl>
 <dd>
 
@@ -355,7 +355,7 @@ Returns seconds since last update and device online status.
 <dd>
 
 ```go
-request := &sdk.GetUpdateStatusDeviceLiveRequest{
+request := &weathercloud.GetUpdateStatusDeviceLiveRequest{
         D: "5726468552",
     }
 client.DeviceLive.GetUpdateStatus(
@@ -389,7 +389,7 @@ client.DeviceLive.GetUpdateStatus(
 </dl>
 </details>
 
-<details><summary><code>client.DeviceLive.GetOwnerProfile(request) -> *sdk.DeviceProfile</code></summary>
+<details><summary><code>client.DeviceLive.GetOwnerProfile(request) -> *weathercloud.DeviceProfile</code></summary>
 <dl>
 <dd>
 
@@ -418,7 +418,7 @@ Returns observer name, follower count, and device brand/model.
 <dd>
 
 ```go
-request := &sdk.GetOwnerProfileDeviceLiveRequest{
+request := &weathercloud.GetOwnerProfileDeviceLiveRequest{
         D: "5726468552",
     }
 client.DeviceLive.GetOwnerProfile(
@@ -453,7 +453,7 @@ client.DeviceLive.GetOwnerProfile(
 </details>
 
 ## DeviceHistory
-<details><summary><code>client.DeviceHistory.GetEvolution(request) -> *sdk.EvolutionResponse</code></summary>
+<details><summary><code>client.DeviceHistory.GetEvolution(request) -> *weathercloud.EvolutionResponse</code></summary>
 <dl>
 <dd>
 
@@ -499,10 +499,10 @@ Returns hourly aggregated history for a given variable and period.
 <dd>
 
 ```go
-request := &sdk.GetEvolutionDeviceHistoryRequest{
+request := &weathercloud.GetEvolutionDeviceHistoryRequest{
         Device: "5726468552",
         Variable: 101,
-        Period: sdk.GetEvolutionDeviceHistoryRequestPeriodDay,
+        Period: weathercloud.GetEvolutionDeviceHistoryRequestPeriodDay,
     }
 client.DeviceHistory.GetEvolution(
         context.TODO(),
@@ -539,7 +539,7 @@ client.DeviceHistory.GetEvolution(
 <dl>
 <dd>
 
-**period:** `*sdk.GetEvolutionDeviceHistoryRequestPeriod` 
+**period:** `*weathercloud.GetEvolutionDeviceHistoryRequestPeriod` 
     
 </dd>
 </dl>
@@ -552,7 +552,7 @@ client.DeviceHistory.GetEvolution(
 </details>
 
 ## Forecast
-<details><summary><code>client.Forecast.GetDaily() -> *sdk.ForecastResponse</code></summary>
+<details><summary><code>client.Forecast.GetDaily() -> *weathercloud.ForecastResponse</code></summary>
 <dl>
 <dd>
 
@@ -565,7 +565,7 @@ client.DeviceHistory.GetEvolution(
 <dd>
 
 ```go
-request := &sdk.GetDailyForecastRequest{
+request := &weathercloud.GetDailyForecastRequest{
         ID: "5726468552",
     }
 client.Forecast.GetDaily(
@@ -600,7 +600,7 @@ client.Forecast.GetDaily(
 </details>
 
 ## Map
-<details><summary><code>client.Map.GetDevices(request) -> *sdk.MapDevicesResponse</code></summary>
+<details><summary><code>client.Map.GetDevices(request) -> *weathercloud.MapDevicesResponse</code></summary>
 <dl>
 <dd>
 
@@ -629,7 +629,7 @@ Returns stations visible on the map for a given location bounding box.
 <dd>
 
 ```go
-request := &sdk.GetDevicesMapRequest{}
+request := &weathercloud.GetDevicesMapRequest{}
 client.Map.GetDevices(
         context.TODO(),
         request,
@@ -669,7 +669,7 @@ client.Map.GetDevices(
 </dl>
 </details>
 
-<details><summary><code>client.Map.GetBackgroundDevices(request) -> *sdk.MapDevicesResponse</code></summary>
+<details><summary><code>client.Map.GetBackgroundDevices(request) -> *weathercloud.MapDevicesResponse</code></summary>
 <dl>
 <dd>
 
@@ -682,7 +682,7 @@ client.Map.GetDevices(
 <dd>
 
 ```go
-request := &sdk.GetBackgroundDevicesMapRequest{}
+request := &weathercloud.GetBackgroundDevicesMapRequest{}
 client.Map.GetBackgroundDevices(
         context.TODO(),
         request,
@@ -714,7 +714,7 @@ client.Map.GetBackgroundDevices(
 </dl>
 </details>
 
-<details><summary><code>client.Map.GetMetars(request) -> *sdk.GetMetarsMapResponse</code></summary>
+<details><summary><code>client.Map.GetMetars(request) -> *weathercloud.GetMetarsMapResponse</code></summary>
 <dl>
 <dd>
 
@@ -762,7 +762,7 @@ client.Map.GetMetars(
 </details>
 
 ## Stations
-<details><summary><code>client.Stations.GetNearby(Lat, Lon, Km) -> *sdk.PageDevicesResponse</code></summary>
+<details><summary><code>client.Stations.GetNearby(Lat, Lon, Km) -> *weathercloud.PageDevicesResponse</code></summary>
 <dl>
 <dd>
 
@@ -791,7 +791,7 @@ Values are scaled integers — divide by 10 (e.g. `temp: 281` = 28.1°C).
 <dd>
 
 ```go
-request := &sdk.GetNearbyStationsRequest{
+request := &weathercloud.GetNearbyStationsRequest{
         Lat: 1.1,
         Lon: 1.1,
         Km: 1,
@@ -843,7 +843,7 @@ client.Stations.GetNearby(
 </dl>
 </details>
 
-<details><summary><code>client.Stations.GetPopular(Country, Period) -> *sdk.PageDevicesResponse</code></summary>
+<details><summary><code>client.Stations.GetPopular(Country, Period) -> *weathercloud.PageDevicesResponse</code></summary>
 <dl>
 <dd>
 
@@ -856,9 +856,9 @@ client.Stations.GetNearby(
 <dd>
 
 ```go
-request := &sdk.GetPopularStationsRequest{
+request := &weathercloud.GetPopularStationsRequest{
         Country: "BE",
-        Period: sdk.GetPopularStationsRequestPeriodDay,
+        Period: weathercloud.GetPopularStationsRequestPeriodDay,
     }
 client.Stations.GetPopular(
         context.TODO(),
@@ -887,7 +887,7 @@ client.Stations.GetPopular(
 <dl>
 <dd>
 
-**period:** `*sdk.GetPopularStationsRequestPeriod` 
+**period:** `*weathercloud.GetPopularStationsRequestPeriod` 
     
 </dd>
 </dl>
@@ -899,7 +899,7 @@ client.Stations.GetPopular(
 </dl>
 </details>
 
-<details><summary><code>client.Stations.GetNewest(Country) -> *sdk.PageDevicesResponse</code></summary>
+<details><summary><code>client.Stations.GetNewest(Country) -> *weathercloud.PageDevicesResponse</code></summary>
 <dl>
 <dd>
 
@@ -912,7 +912,7 @@ client.Stations.GetPopular(
 <dd>
 
 ```go
-request := &sdk.GetNewestStationsRequest{
+request := &weathercloud.GetNewestStationsRequest{
         Country: "BE",
     }
 client.Stations.GetNewest(
@@ -946,7 +946,7 @@ client.Stations.GetNewest(
 </dl>
 </details>
 
-<details><summary><code>client.Stations.GetMostFollowed(Country) -> *sdk.PageDevicesResponse</code></summary>
+<details><summary><code>client.Stations.GetMostFollowed(Country) -> *weathercloud.PageDevicesResponse</code></summary>
 <dl>
 <dd>
 
@@ -959,7 +959,7 @@ client.Stations.GetNewest(
 <dd>
 
 ```go
-request := &sdk.GetMostFollowedStationsRequest{
+request := &weathercloud.GetMostFollowedStationsRequest{
         Country: "BE",
     }
 client.Stations.GetMostFollowed(
@@ -993,7 +993,7 @@ client.Stations.GetMostFollowed(
 </dl>
 </details>
 
-<details><summary><code>client.Stations.GetLastViews() -> *sdk.PageDevicesResponse</code></summary>
+<details><summary><code>client.Stations.GetLastViews() -> *weathercloud.PageDevicesResponse</code></summary>
 <dl>
 <dd>
 
@@ -1021,7 +1021,7 @@ client.Stations.GetLastViews(
 </dl>
 </details>
 
-<details><summary><code>client.Stations.GetOwn() -> *sdk.PageDevicesResponse</code></summary>
+<details><summary><code>client.Stations.GetOwn() -> *weathercloud.PageDevicesResponse</code></summary>
 <dl>
 <dd>
 
@@ -1087,7 +1087,7 @@ Strip everything from ` - Weathercloud` onward to get the clean station name.
 <dd>
 
 ```go
-request := &sdk.GetStationPageStationsRequest{
+request := &weathercloud.GetStationPageStationsRequest{
         DeviceID: "deviceId",
     }
 client.Stations.GetStationPage(
@@ -1122,7 +1122,7 @@ client.Stations.GetStationPage(
 </details>
 
 ## Metar
-<details><summary><code>client.Metar.GetValues(DeviceID) -> *sdk.DeviceValues</code></summary>
+<details><summary><code>client.Metar.GetValues(DeviceID) -> *weathercloud.DeviceValues</code></summary>
 <dl>
 <dd>
 
@@ -1162,7 +1162,7 @@ METAR station IDs are **ICAO codes** (4 letters), e.g. `EBBR` for Brussels Airpo
 <dd>
 
 ```go
-request := &sdk.GetValuesMetarRequest{
+request := &weathercloud.GetValuesMetarRequest{
         DeviceID: "EBBR",
     }
 client.Metar.GetValues(

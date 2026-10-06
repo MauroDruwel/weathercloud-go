@@ -8,7 +8,7 @@ import (
 	"io"
 	"net/http"
 
-	"sdk/core"
+	"github.com/MauroDruwel/weathercloud-go/core"
 )
 
 // ErrorCodes maps HTTP status codes to error constructors.

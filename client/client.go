@@ -3,19 +3,19 @@
 package client
 
 import (
-	auth "sdk/auth"
-	core "sdk/core"
-	devicehistory "sdk/devicehistory"
-	devicelive "sdk/devicelive"
-	forecast "sdk/forecast"
-	internal "sdk/internal"
-	map_ "sdk/map_"
-	metar "sdk/metar"
-	option "sdk/option"
-	stations "sdk/stations"
+	auth "github.com/MauroDruwel/weathercloud-go/auth"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	devicehistory "github.com/MauroDruwel/weathercloud-go/devicehistory"
+	devicelive "github.com/MauroDruwel/weathercloud-go/devicelive"
+	forecast "github.com/MauroDruwel/weathercloud-go/forecast"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	map_ "github.com/MauroDruwel/weathercloud-go/map_"
+	metar "github.com/MauroDruwel/weathercloud-go/metar"
+	option "github.com/MauroDruwel/weathercloud-go/option"
+	stations "github.com/MauroDruwel/weathercloud-go/stations"
 )
 
-type Client struct {
+type WeathercloudClient struct {
 	Auth          *auth.Client
 	DeviceLive    *devicelive.Client
 	DeviceHistory *devicehistory.Client
@@ -29,9 +29,9 @@ type Client struct {
 	caller  *internal.Caller
 }
 
-func NewClient(opts ...option.RequestOption) *Client {
+func NewWeathercloudClient(opts ...option.RequestOption) *WeathercloudClient {
 	options := core.NewRequestOptions(opts...)
-	return &Client{
+	return &WeathercloudClient{
 		Auth:          auth.NewClient(options),
 		DeviceLive:    devicelive.NewClient(options),
 		DeviceHistory: devicehistory.NewClient(options),

@@ -5,10 +5,11 @@ package devicelive
 import (
 	context "context"
 	http "net/http"
-	sdk "sdk"
-	core "sdk/core"
-	internal "sdk/internal"
-	option "sdk/option"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 )
 
 type RawClient struct {
@@ -33,9 +34,9 @@ func NewRawClient(options *core.RequestOptions) *RawClient {
 
 func (r *RawClient) GetValues(
 	ctx context.Context,
-	request *sdk.GetValuesDeviceLiveRequest,
+	request *weathercloud.GetValuesDeviceLiveRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DeviceValues], error) {
+) (*core.Response[*weathercloud.DeviceValues], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -50,7 +51,7 @@ func (r *RawClient) GetValues(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DeviceValues
+	var response *weathercloud.DeviceValues
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -68,7 +69,7 @@ func (r *RawClient) GetValues(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DeviceValues]{
+	return &core.Response[*weathercloud.DeviceValues]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -77,9 +78,9 @@ func (r *RawClient) GetValues(
 
 func (r *RawClient) GetStats(
 	ctx context.Context,
-	request *sdk.GetStatsDeviceLiveRequest,
+	request *weathercloud.GetStatsDeviceLiveRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DeviceStats], error) {
+) (*core.Response[*weathercloud.DeviceStats], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -98,7 +99,7 @@ func (r *RawClient) GetStats(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DeviceStats
+	var response *weathercloud.DeviceStats
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -116,7 +117,7 @@ func (r *RawClient) GetStats(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DeviceStats]{
+	return &core.Response[*weathercloud.DeviceStats]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -125,9 +126,9 @@ func (r *RawClient) GetStats(
 
 func (r *RawClient) GetInfo(
 	ctx context.Context,
-	request *sdk.GetInfoDeviceLiveRequest,
+	request *weathercloud.GetInfoDeviceLiveRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DeviceInfo], error) {
+) (*core.Response[*weathercloud.DeviceInfo], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -142,7 +143,7 @@ func (r *RawClient) GetInfo(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DeviceInfo
+	var response *weathercloud.DeviceInfo
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -160,7 +161,7 @@ func (r *RawClient) GetInfo(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DeviceInfo]{
+	return &core.Response[*weathercloud.DeviceInfo]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -169,9 +170,9 @@ func (r *RawClient) GetInfo(
 
 func (r *RawClient) GetWindRose(
 	ctx context.Context,
-	request *sdk.GetWindRoseDeviceLiveRequest,
+	request *weathercloud.GetWindRoseDeviceLiveRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.WindData], error) {
+) (*core.Response[*weathercloud.WindData], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -190,7 +191,7 @@ func (r *RawClient) GetWindRose(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.WindData
+	var response *weathercloud.WindData
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -208,7 +209,7 @@ func (r *RawClient) GetWindRose(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.WindData]{
+	return &core.Response[*weathercloud.WindData]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -217,9 +218,9 @@ func (r *RawClient) GetWindRose(
 
 func (r *RawClient) GetUpdateStatus(
 	ctx context.Context,
-	request *sdk.GetUpdateStatusDeviceLiveRequest,
+	request *weathercloud.GetUpdateStatusDeviceLiveRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GetUpdateStatusDeviceLiveResponse], error) {
+) (*core.Response[*weathercloud.GetUpdateStatusDeviceLiveResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -232,7 +233,7 @@ func (r *RawClient) GetUpdateStatus(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/x-www-form-urlencoded")
-	var response *sdk.GetUpdateStatusDeviceLiveResponse
+	var response *weathercloud.GetUpdateStatusDeviceLiveResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -251,7 +252,7 @@ func (r *RawClient) GetUpdateStatus(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GetUpdateStatusDeviceLiveResponse]{
+	return &core.Response[*weathercloud.GetUpdateStatusDeviceLiveResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -260,9 +261,9 @@ func (r *RawClient) GetUpdateStatus(
 
 func (r *RawClient) GetOwnerProfile(
 	ctx context.Context,
-	request *sdk.GetOwnerProfileDeviceLiveRequest,
+	request *weathercloud.GetOwnerProfileDeviceLiveRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DeviceProfile], error) {
+) (*core.Response[*weathercloud.DeviceProfile], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -275,7 +276,7 @@ func (r *RawClient) GetOwnerProfile(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/x-www-form-urlencoded")
-	var response *sdk.DeviceProfile
+	var response *weathercloud.DeviceProfile
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -294,7 +295,7 @@ func (r *RawClient) GetOwnerProfile(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DeviceProfile]{
+	return &core.Response[*weathercloud.DeviceProfile]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

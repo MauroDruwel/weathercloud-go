@@ -8,11 +8,11 @@ import (
 	json "encoding/json"
 	http "net/http"
 	os "os"
-	sdk "sdk"
-	client "sdk/client"
-	option "sdk/option"
 	testing "testing"
 
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	client "github.com/MauroDruwel/weathercloud-go/client"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 	require "github.com/stretchr/testify/require"
 )
 
@@ -84,10 +84,10 @@ func TestMapGetDevicesWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetDevicesMapRequest{}
+	request := &weathercloud.GetDevicesMapRequest{}
 	_, invocationErr := client.Map.GetDevices(
 		context.TODO(),
 		request,
@@ -107,10 +107,10 @@ func TestMapGetBackgroundDevicesWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetBackgroundDevicesMapRequest{}
+	request := &weathercloud.GetBackgroundDevicesMapRequest{}
 	_, invocationErr := client.Map.GetBackgroundDevices(
 		context.TODO(),
 		request,
@@ -130,7 +130,7 @@ func TestMapGetMetarsWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
 	request := map[string]any{

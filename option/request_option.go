@@ -3,9 +3,9 @@
 package option
 
 import (
+	core "github.com/MauroDruwel/weathercloud-go/core"
 	http "net/http"
 	url "net/url"
-	core "sdk/core"
 )
 
 // RequestOption adapts the behavior of an individual request.

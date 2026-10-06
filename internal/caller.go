@@ -13,7 +13,7 @@ import (
 	"reflect"
 	"strings"
 
-	"sdk/core"
+	"github.com/MauroDruwel/weathercloud-go/core"
 )
 
 const (

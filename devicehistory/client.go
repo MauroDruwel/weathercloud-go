@@ -4,10 +4,11 @@ package devicehistory
 
 import (
 	context "context"
-	sdk "sdk"
-	core "sdk/core"
-	internal "sdk/internal"
-	option "sdk/option"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 )
 
 type Client struct {
@@ -55,9 +56,9 @@ func NewClient(options *core.RequestOptions) *Client {
 // **Period values:** `day`, `week`, `month`, `year`
 func (c *Client) GetEvolution(
 	ctx context.Context,
-	request *sdk.GetEvolutionDeviceHistoryRequest,
+	request *weathercloud.GetEvolutionDeviceHistoryRequest,
 	opts ...option.RequestOption,
-) (*sdk.EvolutionResponse, error) {
+) (*weathercloud.EvolutionResponse, error) {
 	response, err := c.WithRawResponse.GetEvolution(
 		ctx,
 		request,

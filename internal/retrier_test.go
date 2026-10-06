@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/MauroDruwel/weathercloud-go/core"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"sdk/core"
 )
 
 type RetryTestCase struct {

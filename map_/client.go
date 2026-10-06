@@ -4,10 +4,11 @@ package map_
 
 import (
 	context "context"
-	sdk "sdk"
-	core "sdk/core"
-	internal "sdk/internal"
-	option "sdk/option"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 )
 
 type Client struct {
@@ -38,9 +39,9 @@ func NewClient(options *core.RequestOptions) *Client {
 // > ⚠️ **Requires `X-Requested-With: XMLHttpRequest`** header — without it the server returns an empty 200.
 func (c *Client) GetDevices(
 	ctx context.Context,
-	request *sdk.GetDevicesMapRequest,
+	request *weathercloud.GetDevicesMapRequest,
 	opts ...option.RequestOption,
-) (*sdk.MapDevicesResponse, error) {
+) (*weathercloud.MapDevicesResponse, error) {
 	response, err := c.WithRawResponse.GetDevices(
 		ctx,
 		request,
@@ -54,9 +55,9 @@ func (c *Client) GetDevices(
 
 func (c *Client) GetBackgroundDevices(
 	ctx context.Context,
-	request *sdk.GetBackgroundDevicesMapRequest,
+	request *weathercloud.GetBackgroundDevicesMapRequest,
 	opts ...option.RequestOption,
-) (*sdk.MapDevicesResponse, error) {
+) (*weathercloud.MapDevicesResponse, error) {
 	response, err := c.WithRawResponse.GetBackgroundDevices(
 		ctx,
 		request,
@@ -72,7 +73,7 @@ func (c *Client) GetMetars(
 	ctx context.Context,
 	request map[string]any,
 	opts ...option.RequestOption,
-) (*sdk.GetMetarsMapResponse, error) {
+) (*weathercloud.GetMetarsMapResponse, error) {
 	response, err := c.WithRawResponse.GetMetars(
 		ctx,
 		request,

@@ -4,10 +4,11 @@ package devicelive
 
 import (
 	context "context"
-	sdk "sdk"
-	core "sdk/core"
-	internal "sdk/internal"
-	option "sdk/option"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 )
 
 type Client struct {
@@ -37,9 +38,9 @@ func NewClient(options *core.RequestOptions) *Client {
 // This is the primary endpoint for a Home Assistant sensor integration.
 func (c *Client) GetValues(
 	ctx context.Context,
-	request *sdk.GetValuesDeviceLiveRequest,
+	request *weathercloud.GetValuesDeviceLiveRequest,
 	opts ...option.RequestOption,
-) (*sdk.DeviceValues, error) {
+) (*weathercloud.DeviceValues, error) {
 	response, err := c.WithRawResponse.GetValues(
 		ctx,
 		request,
@@ -55,9 +56,9 @@ func (c *Client) GetValues(
 // Each value is a `[unix_timestamp, value]` tuple.
 func (c *Client) GetStats(
 	ctx context.Context,
-	request *sdk.GetStatsDeviceLiveRequest,
+	request *weathercloud.GetStatsDeviceLiveRequest,
 	opts ...option.RequestOption,
-) (*sdk.DeviceStats, error) {
+) (*weathercloud.DeviceStats, error) {
 	response, err := c.WithRawResponse.GetStats(
 		ctx,
 		request,
@@ -72,9 +73,9 @@ func (c *Client) GetStats(
 // Station name, location, elevation, equipment info.
 func (c *Client) GetInfo(
 	ctx context.Context,
-	request *sdk.GetInfoDeviceLiveRequest,
+	request *weathercloud.GetInfoDeviceLiveRequest,
 	opts ...option.RequestOption,
-) (*sdk.DeviceInfo, error) {
+) (*weathercloud.DeviceInfo, error) {
 	response, err := c.WithRawResponse.GetInfo(
 		ctx,
 		request,
@@ -89,9 +90,9 @@ func (c *Client) GetInfo(
 // Wind direction distribution data for the wind rose chart.
 func (c *Client) GetWindRose(
 	ctx context.Context,
-	request *sdk.GetWindRoseDeviceLiveRequest,
+	request *weathercloud.GetWindRoseDeviceLiveRequest,
 	opts ...option.RequestOption,
-) (*sdk.WindData, error) {
+) (*weathercloud.WindData, error) {
 	response, err := c.WithRawResponse.GetWindRose(
 		ctx,
 		request,
@@ -108,9 +109,9 @@ func (c *Client) GetWindRose(
 // > ⚠️ **Requires `X-Requested-With: XMLHttpRequest`** header — without it the server returns an empty 200.
 func (c *Client) GetUpdateStatus(
 	ctx context.Context,
-	request *sdk.GetUpdateStatusDeviceLiveRequest,
+	request *weathercloud.GetUpdateStatusDeviceLiveRequest,
 	opts ...option.RequestOption,
-) (*sdk.GetUpdateStatusDeviceLiveResponse, error) {
+) (*weathercloud.GetUpdateStatusDeviceLiveResponse, error) {
 	response, err := c.WithRawResponse.GetUpdateStatus(
 		ctx,
 		request,
@@ -127,9 +128,9 @@ func (c *Client) GetUpdateStatus(
 // > ⚠️ **Requires `X-Requested-With: XMLHttpRequest`** header — without it the server returns an empty 200.
 func (c *Client) GetOwnerProfile(
 	ctx context.Context,
-	request *sdk.GetOwnerProfileDeviceLiveRequest,
+	request *weathercloud.GetOwnerProfileDeviceLiveRequest,
 	opts ...option.RequestOption,
-) (*sdk.DeviceProfile, error) {
+) (*weathercloud.DeviceProfile, error) {
 	response, err := c.WithRawResponse.GetOwnerProfile(
 		ctx,
 		request,

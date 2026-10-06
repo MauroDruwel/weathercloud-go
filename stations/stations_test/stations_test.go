@@ -8,11 +8,11 @@ import (
 	json "encoding/json"
 	http "net/http"
 	os "os"
-	sdk "sdk"
-	client "sdk/client"
-	option "sdk/option"
 	testing "testing"
 
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	client "github.com/MauroDruwel/weathercloud-go/client"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 	require "github.com/stretchr/testify/require"
 )
 
@@ -84,10 +84,10 @@ func TestStationsGetNearbyWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetNearbyStationsRequest{
+	request := &weathercloud.GetNearbyStationsRequest{
 		Lat: 1.1,
 		Lon: 1.1,
 		Km:  1,
@@ -111,12 +111,12 @@ func TestStationsGetPopularWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetPopularStationsRequest{
+	request := &weathercloud.GetPopularStationsRequest{
 		Country: "BE",
-		Period:  sdk.GetPopularStationsRequestPeriodDay,
+		Period:  weathercloud.GetPopularStationsRequestPeriodDay,
 	}
 	_, invocationErr := client.Stations.GetPopular(
 		context.TODO(),
@@ -137,10 +137,10 @@ func TestStationsGetNewestWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetNewestStationsRequest{
+	request := &weathercloud.GetNewestStationsRequest{
 		Country: "BE",
 	}
 	_, invocationErr := client.Stations.GetNewest(
@@ -162,10 +162,10 @@ func TestStationsGetMostFollowedWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetMostFollowedStationsRequest{
+	request := &weathercloud.GetMostFollowedStationsRequest{
 		Country: "BE",
 	}
 	_, invocationErr := client.Stations.GetMostFollowed(
@@ -187,7 +187,7 @@ func TestStationsGetLastViewsWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
 	_, invocationErr := client.Stations.GetLastViews(
@@ -208,7 +208,7 @@ func TestStationsGetOwnWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
 	_, invocationErr := client.Stations.GetOwn(
@@ -229,10 +229,10 @@ func TestStationsGetStationPageWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetStationPageStationsRequest{
+	request := &weathercloud.GetStationPageStationsRequest{
 		DeviceID: "deviceId",
 	}
 	_, invocationErr := client.Stations.GetStationPage(

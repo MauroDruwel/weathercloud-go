@@ -5,10 +5,11 @@ package metar
 import (
 	context "context"
 	http "net/http"
-	sdk "sdk"
-	core "sdk/core"
-	internal "sdk/internal"
-	option "sdk/option"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 )
 
 type RawClient struct {
@@ -33,9 +34,9 @@ func NewRawClient(options *core.RequestOptions) *RawClient {
 
 func (r *RawClient) GetValues(
 	ctx context.Context,
-	request *sdk.GetValuesMetarRequest,
+	request *weathercloud.GetValuesMetarRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DeviceValues], error) {
+) (*core.Response[*weathercloud.DeviceValues], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -50,7 +51,7 @@ func (r *RawClient) GetValues(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DeviceValues
+	var response *weathercloud.DeviceValues
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -68,7 +69,7 @@ func (r *RawClient) GetValues(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DeviceValues]{
+	return &core.Response[*weathercloud.DeviceValues]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

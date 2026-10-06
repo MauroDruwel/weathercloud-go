@@ -4,10 +4,11 @@ package stations
 
 import (
 	context "context"
-	sdk "sdk"
-	core "sdk/core"
-	internal "sdk/internal"
-	option "sdk/option"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 )
 
 type Client struct {
@@ -38,9 +39,9 @@ func NewClient(options *core.RequestOptions) *Client {
 // Values are scaled integers — divide by 10 (e.g. `temp: 281` = 28.1°C).
 func (c *Client) GetNearby(
 	ctx context.Context,
-	request *sdk.GetNearbyStationsRequest,
+	request *weathercloud.GetNearbyStationsRequest,
 	opts ...option.RequestOption,
-) (*sdk.PageDevicesResponse, error) {
+) (*weathercloud.PageDevicesResponse, error) {
 	response, err := c.WithRawResponse.GetNearby(
 		ctx,
 		request,
@@ -54,9 +55,9 @@ func (c *Client) GetNearby(
 
 func (c *Client) GetPopular(
 	ctx context.Context,
-	request *sdk.GetPopularStationsRequest,
+	request *weathercloud.GetPopularStationsRequest,
 	opts ...option.RequestOption,
-) (*sdk.PageDevicesResponse, error) {
+) (*weathercloud.PageDevicesResponse, error) {
 	response, err := c.WithRawResponse.GetPopular(
 		ctx,
 		request,
@@ -70,9 +71,9 @@ func (c *Client) GetPopular(
 
 func (c *Client) GetNewest(
 	ctx context.Context,
-	request *sdk.GetNewestStationsRequest,
+	request *weathercloud.GetNewestStationsRequest,
 	opts ...option.RequestOption,
-) (*sdk.PageDevicesResponse, error) {
+) (*weathercloud.PageDevicesResponse, error) {
 	response, err := c.WithRawResponse.GetNewest(
 		ctx,
 		request,
@@ -86,9 +87,9 @@ func (c *Client) GetNewest(
 
 func (c *Client) GetMostFollowed(
 	ctx context.Context,
-	request *sdk.GetMostFollowedStationsRequest,
+	request *weathercloud.GetMostFollowedStationsRequest,
 	opts ...option.RequestOption,
-) (*sdk.PageDevicesResponse, error) {
+) (*weathercloud.PageDevicesResponse, error) {
 	response, err := c.WithRawResponse.GetMostFollowed(
 		ctx,
 		request,
@@ -103,7 +104,7 @@ func (c *Client) GetMostFollowed(
 func (c *Client) GetLastViews(
 	ctx context.Context,
 	opts ...option.RequestOption,
-) (*sdk.PageDevicesResponse, error) {
+) (*weathercloud.PageDevicesResponse, error) {
 	response, err := c.WithRawResponse.GetLastViews(
 		ctx,
 		opts...,
@@ -117,7 +118,7 @@ func (c *Client) GetLastViews(
 func (c *Client) GetOwn(
 	ctx context.Context,
 	opts ...option.RequestOption,
-) (*sdk.PageDevicesResponse, error) {
+) (*weathercloud.PageDevicesResponse, error) {
 	response, err := c.WithRawResponse.GetOwn(
 		ctx,
 		opts...,
@@ -142,7 +143,7 @@ func (c *Client) GetOwn(
 // > This is a plain HTML page, not a JSON API. Use it for scraping only.
 func (c *Client) GetStationPage(
 	ctx context.Context,
-	request *sdk.GetStationPageStationsRequest,
+	request *weathercloud.GetStationPageStationsRequest,
 	opts ...option.RequestOption,
 ) (string, error) {
 	response, err := c.WithRawResponse.GetStationPage(

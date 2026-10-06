@@ -5,10 +5,11 @@ package map_
 import (
 	context "context"
 	http "net/http"
-	sdk "sdk"
-	core "sdk/core"
-	internal "sdk/internal"
-	option "sdk/option"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 )
 
 type RawClient struct {
@@ -33,9 +34,9 @@ func NewRawClient(options *core.RequestOptions) *RawClient {
 
 func (r *RawClient) GetDevices(
 	ctx context.Context,
-	request *sdk.GetDevicesMapRequest,
+	request *weathercloud.GetDevicesMapRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.MapDevicesResponse], error) {
+) (*core.Response[*weathercloud.MapDevicesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -48,7 +49,7 @@ func (r *RawClient) GetDevices(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/x-www-form-urlencoded")
-	var response *sdk.MapDevicesResponse
+	var response *weathercloud.MapDevicesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -67,7 +68,7 @@ func (r *RawClient) GetDevices(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.MapDevicesResponse]{
+	return &core.Response[*weathercloud.MapDevicesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -76,9 +77,9 @@ func (r *RawClient) GetDevices(
 
 func (r *RawClient) GetBackgroundDevices(
 	ctx context.Context,
-	request *sdk.GetBackgroundDevicesMapRequest,
+	request *weathercloud.GetBackgroundDevicesMapRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.MapDevicesResponse], error) {
+) (*core.Response[*weathercloud.MapDevicesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -91,7 +92,7 @@ func (r *RawClient) GetBackgroundDevices(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/x-www-form-urlencoded")
-	var response *sdk.MapDevicesResponse
+	var response *weathercloud.MapDevicesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -110,7 +111,7 @@ func (r *RawClient) GetBackgroundDevices(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.MapDevicesResponse]{
+	return &core.Response[*weathercloud.MapDevicesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -121,7 +122,7 @@ func (r *RawClient) GetMetars(
 	ctx context.Context,
 	request map[string]any,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GetMetarsMapResponse], error) {
+) (*core.Response[*weathercloud.GetMetarsMapResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -133,7 +134,7 @@ func (r *RawClient) GetMetars(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.GetMetarsMapResponse
+	var response *weathercloud.GetMetarsMapResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -152,7 +153,7 @@ func (r *RawClient) GetMetars(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GetMetarsMapResponse]{
+	return &core.Response[*weathercloud.GetMetarsMapResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

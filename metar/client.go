@@ -4,10 +4,11 @@ package metar
 
 import (
 	context "context"
-	sdk "sdk"
-	core "sdk/core"
-	internal "sdk/internal"
-	option "sdk/option"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 )
 
 type Client struct {
@@ -49,9 +50,9 @@ func NewClient(options *core.RequestOptions) *Client {
 // > **Not supported for METAR:** `/device/ajaxdevicestats`
 func (c *Client) GetValues(
 	ctx context.Context,
-	request *sdk.GetValuesMetarRequest,
+	request *weathercloud.GetValuesMetarRequest,
 	opts ...option.RequestOption,
-) (*sdk.DeviceValues, error) {
+) (*weathercloud.DeviceValues, error) {
 	response, err := c.WithRawResponse.GetValues(
 		ctx,
 		request,

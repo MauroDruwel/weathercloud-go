@@ -8,11 +8,11 @@ import (
 	json "encoding/json"
 	http "net/http"
 	os "os"
-	sdk "sdk"
-	client "sdk/client"
-	option "sdk/option"
 	testing "testing"
 
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	client "github.com/MauroDruwel/weathercloud-go/client"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 	require "github.com/stretchr/testify/require"
 )
 
@@ -84,10 +84,10 @@ func TestDeviceLiveGetValuesWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetValuesDeviceLiveRequest{
+	request := &weathercloud.GetValuesDeviceLiveRequest{
 		DeviceID: "5726468552",
 	}
 	_, invocationErr := client.DeviceLive.GetValues(
@@ -109,10 +109,10 @@ func TestDeviceLiveGetStatsWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetStatsDeviceLiveRequest{
+	request := &weathercloud.GetStatsDeviceLiveRequest{
 		Code: "5726468552",
 	}
 	_, invocationErr := client.DeviceLive.GetStats(
@@ -134,10 +134,10 @@ func TestDeviceLiveGetInfoWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetInfoDeviceLiveRequest{
+	request := &weathercloud.GetInfoDeviceLiveRequest{
 		DeviceID: "5726468552",
 	}
 	_, invocationErr := client.DeviceLive.GetInfo(
@@ -159,10 +159,10 @@ func TestDeviceLiveGetWindRoseWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetWindRoseDeviceLiveRequest{
+	request := &weathercloud.GetWindRoseDeviceLiveRequest{
 		Code: "5726468552",
 	}
 	_, invocationErr := client.DeviceLive.GetWindRose(
@@ -184,10 +184,10 @@ func TestDeviceLiveGetUpdateStatusWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetUpdateStatusDeviceLiveRequest{
+	request := &weathercloud.GetUpdateStatusDeviceLiveRequest{
 		D: "5726468552",
 	}
 	_, invocationErr := client.DeviceLive.GetUpdateStatus(
@@ -209,10 +209,10 @@ func TestDeviceLiveGetOwnerProfileWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetOwnerProfileDeviceLiveRequest{
+	request := &weathercloud.GetOwnerProfileDeviceLiveRequest{
 		D: "5726468552",
 	}
 	_, invocationErr := client.DeviceLive.GetOwnerProfile(

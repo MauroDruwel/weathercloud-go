@@ -4,10 +4,11 @@ package forecast
 
 import (
 	context "context"
-	sdk "sdk"
-	core "sdk/core"
-	internal "sdk/internal"
-	option "sdk/option"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 )
 
 type Client struct {
@@ -35,9 +36,9 @@ func NewClient(options *core.RequestOptions) *Client {
 
 func (c *Client) GetDaily(
 	ctx context.Context,
-	request *sdk.GetDailyForecastRequest,
+	request *weathercloud.GetDailyForecastRequest,
 	opts ...option.RequestOption,
-) (*sdk.ForecastResponse, error) {
+) (*weathercloud.ForecastResponse, error) {
 	response, err := c.WithRawResponse.GetDaily(
 		ctx,
 		request,

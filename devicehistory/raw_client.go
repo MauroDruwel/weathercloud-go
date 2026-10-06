@@ -5,10 +5,11 @@ package devicehistory
 import (
 	context "context"
 	http "net/http"
-	sdk "sdk"
-	core "sdk/core"
-	internal "sdk/internal"
-	option "sdk/option"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	core "github.com/MauroDruwel/weathercloud-go/core"
+	internal "github.com/MauroDruwel/weathercloud-go/internal"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 )
 
 type RawClient struct {
@@ -33,9 +34,9 @@ func NewRawClient(options *core.RequestOptions) *RawClient {
 
 func (r *RawClient) GetEvolution(
 	ctx context.Context,
-	request *sdk.GetEvolutionDeviceHistoryRequest,
+	request *weathercloud.GetEvolutionDeviceHistoryRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.EvolutionResponse], error) {
+) (*core.Response[*weathercloud.EvolutionResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -48,7 +49,7 @@ func (r *RawClient) GetEvolution(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/x-www-form-urlencoded")
-	var response *sdk.EvolutionResponse
+	var response *weathercloud.EvolutionResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -67,7 +68,7 @@ func (r *RawClient) GetEvolution(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.EvolutionResponse]{
+	return &core.Response[*weathercloud.EvolutionResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

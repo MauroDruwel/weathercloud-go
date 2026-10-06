@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"testing"
 
+	"github.com/MauroDruwel/weathercloud-go/core"
 	"github.com/stretchr/testify/assert"
-	"sdk/core"
 )
 
 func TestErrorDecoder(t *testing.T) {

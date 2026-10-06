@@ -31,13 +31,14 @@ package example
 
 import (
     context "context"
-    sdk "sdk"
-    client "sdk/client"
+
+    weathercloud "github.com/MauroDruwel/weathercloud-go"
+    client "github.com/MauroDruwel/weathercloud-go/client"
 )
 
 func do() {
-    client := client.NewClient()
-    request := &sdk.LoginAuthRequest{
+    client := client.NewWeathercloudClient()
+    request := &weathercloud.LoginAuthRequest{
         LoginFormEntity: "LoginForm[entity]",
         LoginFormPassword: "LoginForm[password]",
     }
@@ -55,7 +56,7 @@ URL, which is particularly useful in test environments.
 
 ```go
 client := client.NewClient(
-    option.WithBaseURL(api.Environments.Default),
+    option.WithBaseURL(weathercloud.Environments.Default),
 )
 ```
 

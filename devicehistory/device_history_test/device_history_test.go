@@ -8,11 +8,11 @@ import (
 	json "encoding/json"
 	http "net/http"
 	os "os"
-	sdk "sdk"
-	client "sdk/client"
-	option "sdk/option"
 	testing "testing"
 
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	client "github.com/MauroDruwel/weathercloud-go/client"
+	option "github.com/MauroDruwel/weathercloud-go/option"
 	require "github.com/stretchr/testify/require"
 )
 
@@ -84,13 +84,13 @@ func TestDeviceHistoryGetEvolutionWithWireMock(
 	if WireMockBaseURL == "" {
 		WireMockBaseURL = "http://localhost:8080"
 	}
-	client := client.NewClient(
+	client := client.NewWeathercloudClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetEvolutionDeviceHistoryRequest{
+	request := &weathercloud.GetEvolutionDeviceHistoryRequest{
 		Device:   "5726468552",
 		Variable: 101,
-		Period:   sdk.GetEvolutionDeviceHistoryRequestPeriodDay,
+		Period:   weathercloud.GetEvolutionDeviceHistoryRequestPeriodDay,
 	}
 	_, invocationErr := client.DeviceHistory.GetEvolution(
 		context.TODO(),

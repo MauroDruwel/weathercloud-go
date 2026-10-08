@@ -1,203 +1,222 @@
-# Weathercloud Go Library
+# Weathercloud Go SDK
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=Weathercloud%2FGo)
+[![pkg.go.dev](https://pkg.go.dev/badge/github.com/MauroDruwel/weathercloud-go.svg)](https://pkg.go.dev/github.com/MauroDruwel/weathercloud-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/MauroDruwel/weathercloud-go)](https://goreportcard.com/report/github.com/MauroDruwel/weathercloud-go)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Fern](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com)
 
-The Weathercloud Go library provides convenient access to the Weathercloud APIs from Go.
+Idiomatic, strongly-typed Go client library for [Weathercloud](https://weathercloud.net) — query real-time weather station sensor readings, METAR airport observations, sensor statistics, and historical trends without requiring authentication or CSRF tokens.
+
+---
 
 ## Table of Contents
 
-- [Reference](#reference)
-- [Usage](#usage)
-- [Environments](#environments)
-- [Errors](#errors)
-- [Request Options](#request-options)
-- [Advanced](#advanced)
-  - [Response Headers](#response-headers)
-  - [Retries](#retries)
-  - [Timeouts](#timeouts)
-  - [Explicit Null](#explicit-null)
-- [Contributing](#contributing)
+- [Installation](#installation)
+- [Quickstart](#quickstart)
+- [Live Weather Station Readings](#live-weather-station-readings)
+- [Sensor Variables Reference](#sensor-variables-reference)
+- [Station Profile & Metadata](#station-profile--metadata)
+- [Map & Station Discovery](#map--station-discovery)
+- [METAR Airport Observations](#metar-airport-observations)
+- [Error Handling](#error-handling)
+- [Full Reference](#full-reference)
 
-## Reference
+---
 
-A full reference for this library is available [here](./reference.md).
+## Installation
 
-## Usage
+```bash
+go get github.com/MauroDruwel/weathercloud-go
+```
 
-Instantiate and use the client with the following:
+---
+
+## Quickstart
+
+Get current weather readings for any public Weathercloud station using its device ID (e.g., `5726468552`):
 
 ```go
-package example
+package main
 
 import (
-    context "context"
+	"context"
+	"fmt"
+	"log"
 
-    weathercloud "github.com/MauroDruwel/weathercloud-go"
-    client "github.com/MauroDruwel/weathercloud-go/client"
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	client "github.com/MauroDruwel/weathercloud-go/client"
 )
 
-func do() {
-    client := client.NewWeathercloudClient()
-    request := &weathercloud.LoginAuthRequest{
-        LoginFormEntity: "LoginForm[entity]",
-        LoginFormPassword: "LoginForm[password]",
+func main() {
+	c := client.NewWeathercloudClient()
+
+	// Query live sensor readings — no login or CSRF tokens required
+	weather, err := c.DeviceLive.GetValues(context.Background(), &weathercloud.GetValuesDeviceLiveRequest{
+		DeviceId: "5726468552",
+	})
+	if err != nil {
+		log.Fatalf("Failed to fetch readings: %v", err)
+	}
+
+	fmt.Printf("Timestamp:   %v\n", *weather.Epoch)
+	fmt.Printf("Temperature: %v °C\n", *weather.Temp)
+	fmt.Printf("Humidity:    %v %%\n", *weather.Hum)
+	fmt.Printf("Pressure:    %v hPa\n", *weather.Bar)
+	fmt.Printf("Wind Speed:  %v m/s (Gusts: %v m/s)\n", *weather.Wspd, *weather.Wspdhi)
+	fmt.Printf("Wind Dir:    %v°\n", *weather.Wdir)
+	fmt.Printf("Daily Rain:  %v mm\n", *weather.Rain)
+}
+```
+
+---
+
+## Live Weather Station Readings
+
+### All Sensor Values
+
+`c.DeviceLive.GetValues(...)` returns strongly-typed sensor readings:
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+
+	weathercloud "github.com/MauroDruwel/weathercloud-go"
+	client "github.com/MauroDruwel/weathercloud-go/client"
+)
+
+func main() {
+	c := client.NewWeathercloudClient()
+
+	values, err := c.DeviceLive.GetValues(context.Background(), &weathercloud.GetValuesDeviceLiveRequest{
+		DeviceId: "5726468552",
+	})
+	if err != nil {
+		log.Fatalf("Error: %v", err)
+	}
+
+	// Temperature & Humidity
+	if values.Temp != nil {
+		fmt.Printf("Temp: %v°C | Dew Point: %v°C\n", *values.Temp, *values.Dew)
+	}
+	if values.Hum != nil {
+		fmt.Printf("Humidity: %v%%\n", *values.Hum)
+	}
+
+	// Wind
+	if values.Wspd != nil {
+		fmt.Printf("Wind Speed: %v m/s (Avg: %v m/s, Max: %v m/s)\n", *values.Wspd, *values.Wspdavg, *values.Wspdhi)
+	}
+
+	// Barometer & Rain
+	if values.Bar != nil {
+		fmt.Printf("Barometer: %v hPa\n", *values.Bar)
+	}
+	if values.Rain != nil {
+		fmt.Printf("Rain Today: %v mm\n", *values.Rain)
+	}
+}
+```
+
+---
+
+## Sensor Variables Reference
+
+Weathercloud reports abbreviated keys across its API. The SDK exposes these as clean, PascalCase pointer fields:
+
+| Field | Type | Description | Unit / Format |
+|---|---|---|---|
+| `Epoch` | `*int` | Timestamp of last sensor transmission | Unix epoch (seconds) |
+| `Temp` | `*float64` | Air temperature | °C |
+| `Dew` | `*float64` | Dew point | °C |
+| `Chill` | `*float64` | Wind chill | °C |
+| `Heat` | `*float64` | Heat index | °C |
+| `Hum` | `*int` | Relative humidity | % (0–100) |
+| `Bar` | `*float64` | Atmospheric / barometric pressure | hPa |
+| `Wdir` | `*int` | Instantaneous wind direction | Degrees (0–360°) |
+| `Wdiravg` | `*int` | Average wind direction | Degrees (0–360°) |
+| `Wspd` | `*float64` | Instantaneous wind speed | m/s |
+| `Wspdavg` | `*float64` | Average wind speed | m/s |
+| `Wspdhi` | `*float64` | Peak wind gust of the day | m/s |
+| `Rain` | `*float64` | Accumulated daily precipitation | mm |
+| `Rainrate` | `*float64` | Current precipitation rate | mm/h |
+| `Uvi` | `*float64` | UV index | Index (0–16) |
+| `Solarrad` | `*float64` | Solar radiation | W/m² |
+
+---
+
+## Station Profile & Metadata
+
+Retrieve station model, manufacturer, coordinates, and observer details:
+
+```go
+info, err := c.DeviceLive.GetInfo(context.Background(), &weathercloud.GetInfoDeviceLiveRequest{
+    DeviceId: "5726468552",
+})
+if err == nil && info.Device != nil {
+    fmt.Printf("Station Name: %v\n", *info.Device.Name)
+    fmt.Printf("Model:        %v\n", *info.Device.Model)
+}
+
+stats, err := c.DeviceLive.GetStats(context.Background())
+if err == nil {
+    fmt.Printf("Active Devices: %v\n", *stats.DevicesActive)
+}
+```
+
+---
+
+## Map & Station Discovery
+
+Discover active weather stations within a geographic area or near coordinates:
+
+```go
+devices, err := c.Map.GetDevices(context.Background(), &weathercloud.GetDevicesMapRequest{
+    MinLat: float64Ptr(40.7000),
+    MaxLat: float64Ptr(40.8500),
+    MinLon: float64Ptr(-74.0500),
+    MaxLon: float64Ptr(-73.9000),
+})
+if err == nil {
+    for _, dev := range devices {
+        fmt.Printf("ID: %v | Name: %v\n", dev.Id, dev.Name)
     }
-    client.Auth.Login(
-        context.TODO(),
-        request,
-    )
 }
 ```
 
-## Environments
+---
 
-You can choose between different environments by using the `option.WithBaseURL` option. You can configure any arbitrary base
-URL, which is particularly useful in test environments.
+## METAR Airport Observations
+
+Query aviation weather reports from global airport METAR stations:
 
 ```go
-client := client.NewClient(
-    option.WithBaseURL(weathercloud.Environments.Default),
-)
+metar, err := c.Metar.GetValues(context.Background(), &weathercloud.GetValuesMetarRequest{
+    DeviceId: "EHAM",
+})
+if err == nil {
+    fmt.Printf("Airport METAR: %+v\n", metar)
+}
 ```
 
-## Errors
+---
 
-Structured error types are returned from API calls that return non-success status codes. These errors are compatible
-with the `errors.Is` and `errors.As` APIs, so you can access the error like so:
+## Error Handling
 
 ```go
-response, err := client.Auth.Login(...)
+weather, err := c.DeviceLive.GetValues(context.Background(), &weathercloud.GetValuesDeviceLiveRequest{
+    DeviceId: "nonexistent-id",
+})
 if err != nil {
-    var apiError *core.APIError
-    if errors.As(err, apiError) {
-        // Do something with the API error ...
-    }
-    return err
+    log.Printf("API error: %v", err)
 }
 ```
 
-## Request Options
+---
 
-A variety of request options are included to adapt the behavior of the library, which includes configuring
-authorization tokens, or providing your own instrumented `*http.Client`.
+## Full Reference
 
-These request options can either be
-specified on the client so that they're applied on every request, or for an individual request, like so:
-
-> Providing your own `*http.Client` is recommended. Otherwise, the `http.DefaultClient` will be used,
-> and your client will wait indefinitely for a response (unless the per-request, context-based timeout
-> is used).
-
-```go
-// Specify default options applied on every request.
-client := client.NewClient(
-    option.WithToken("<YOUR_API_KEY>"),
-    option.WithHTTPClient(
-        &http.Client{
-            Timeout: 5 * time.Second,
-        },
-    ),
-)
-
-// Specify options for an individual request.
-response, err := client.Auth.Login(
-    ...,
-    option.WithToken("<YOUR_API_KEY>"),
-)
-```
-
-## Advanced
-
-### Response Headers
-
-You can access the raw HTTP response data by using the `WithRawResponse` field on the client. This is useful
-when you need to examine the response headers received from the API call. (When the endpoint is paginated,
-the raw HTTP response data will be included automatically in the Page response object.)
-
-```go
-response, err := client.Auth.WithRawResponse.Login(...)
-if err != nil {
-    return err
-}
-fmt.Printf("Got response headers: %v", response.Header)
-fmt.Printf("Got status code: %d", response.StatusCode)
-```
-
-### Retries
-
-The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
-as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
-retry limit (default: 2).
-
-Which status codes are retried depends on the `retryStatusCodes` generator configuration:
-
-**`legacy`** (current default): retries on
-- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
-- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
-- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#server_error_responses) (All server errors, including 500)
-
-**`recommended`**: retries on
-- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
-- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
-- [502](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502) (Bad Gateway)
-- [503](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503) (Service Unavailable)
-- [504](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504) (Gateway Timeout)
-
-If the `Retry-After` header is present in the response, the SDK will prioritize respecting its value exactly
-over the default exponential backoff.
-
-Use the `option.WithMaxAttempts` option to configure this behavior for the entire client or an individual request:
-
-```go
-client := client.NewClient(
-    option.WithMaxAttempts(1),
-)
-
-response, err := client.Auth.Login(
-    ...,
-    option.WithMaxAttempts(1),
-)
-```
-
-### Timeouts
-
-Setting a timeout for each individual request is as simple as using the standard context library. Setting a one second timeout for an individual API call looks like the following:
-
-```go
-ctx, cancel := context.WithTimeout(ctx, time.Second)
-defer cancel()
-
-response, err := client.Auth.Login(ctx, ...)
-```
-
-### Explicit Null
-
-If you want to send the explicit `null` JSON value through an optional parameter, you can use the setters\
-that come with every object. Calling a setter method for a property will flip a bit in the `explicitFields`
-bitfield for that setter's object; during serialization, any property with a flipped bit will have its
-omittable status stripped, so zero or `nil` values will be sent explicitly rather than omitted altogether:
-
-```go
-type ExampleRequest struct {
-    // An optional string parameter.
-    Name *string `json:"name,omitempty" url:"-"`
-
-    // Private bitmask of fields set to an explicit value and therefore not to be omitted
-    explicitFields *big.Int `json:"-" url:"-"`
-}
-
-request := &ExampleRequest{}
-request.SetName(nil)
-
-response, err := client.Auth.Login(ctx, request, ...)
-```
-
-## Contributing
-
-While we value open-source contributions to this SDK, this library is generated programmatically.
-Additions made directly to this library would have to be moved over to our generation code,
-otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
-a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
-an issue first to discuss with us!
-
-On the other hand, contributions to the README are always very welcome!
+For comprehensive API definitions, request parameters, and response schemas, see [reference.md](./reference.md).
